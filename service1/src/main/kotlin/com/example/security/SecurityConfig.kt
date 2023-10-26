@@ -12,6 +12,6 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
     override fun configure(http: HttpSecurity) {
         http
             .csrf().disable().authorizeRequests()
-            .anyRequest().authenticated()
+            .anyRequest().access("hasIpAddress('localhost')")
     }
 }
