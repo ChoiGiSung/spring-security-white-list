@@ -21,7 +21,7 @@ class SecurityApplicationTests {
     fun testGetRequest() {
         mockMvc.perform(get("/sample"))
             .andDo(print())
-            .andExpect(status().isOk)
+            .andExpect(status().isForbidden)
 
     }
 
@@ -30,6 +30,14 @@ class SecurityApplicationTests {
         mockMvc.perform(get("/sample2"))
             .andDo(print())
             .andExpect(status().isForbidden)
+
+    }
+
+    @Test
+    fun testGetRequest3() {
+        mockMvc.perform(get("/sample3"))
+            .andDo(print())
+            .andExpect(status().isOk)
 
     }
 

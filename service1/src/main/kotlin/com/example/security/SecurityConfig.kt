@@ -14,6 +14,8 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
     override fun configure(http: HttpSecurity) {
         http
             .csrf().disable().authorizeRequests()
-            .anyRequest().access("hasIpAddress('localhost')")
+            .antMatchers("/sample3").access("hasRole('ROLE_ADMIN') or hasIpAddress('localhost')")
+            .anyRequest().access("hasRole('ROLE_ADMIN')")
+
     }
 }
