@@ -11,4 +11,10 @@ class SampleController {
     fun sample(): String {
         return "sample"
     }
+
+    @Secured("ROLE_ADMIN")
+    @GetMapping("/sample2")
+    fun sample2(): String {
+        return "sample2"
+    }
 }

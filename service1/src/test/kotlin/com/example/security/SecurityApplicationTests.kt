@@ -25,4 +25,12 @@ class SecurityApplicationTests {
 
     }
 
+    @Test
+    fun testGetRequest2() {
+        mockMvc.perform(get("/sample2"))
+            .andDo(print())
+            .andExpect(status().isForbidden)
+
+    }
+
 }
