@@ -1,7 +1,7 @@
 package com.example.security
 
-import org.springframework.security.access.annotation.Secured
 import org.springframework.security.access.prepost.PreAuthorize
+import org.springframework.security.core.Authentication
 import org.springframework.security.core.parameters.P
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServletRequest
 
 @RestController
 @PreAuthorize("hasRole('ROLE_ADMIN')")
-class SampleController {
+class SampleController(
+    private val authHolder: AuthHolder
+) {
 
 
     @GetMapping("/sample")
@@ -22,7 +24,7 @@ class SampleController {
         return "sample2"
     }
 
-    @SecuredOrLocalhost
+    @PreAuthorize("hasRole('ROLE_ADMIN') or @authHolder.getSomeRole(#request)")
     @GetMapping("/sample3")
     fun sample3(@P("request") request: HttpServletRequest): String {
         return "sample3"
