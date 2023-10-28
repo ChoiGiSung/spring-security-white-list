@@ -12,7 +12,14 @@ class AuthHolder {
     @Value("\${my.allowed.ip}")
     private val ips: String? = null
 
-    fun getSomeRole(request: HttpServletRequest): Boolean {
+    fun getSomeRole(request: HttpServletRequest, authentication: Authentication?): Boolean {
+        val authorities = authentication?.authorities ?: emptyList()
+        for (auth in authorities) {
+            if (auth.authority.equals("ROLE_ADMIN")) {
+                return true
+            }
+        }
+
         val ips = this.ips?.split(",") ?: emptyList()
         for (ip in ips) {
             if (request.remoteAddr.equals(ip)) {

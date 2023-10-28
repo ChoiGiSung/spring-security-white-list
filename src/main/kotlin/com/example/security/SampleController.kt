@@ -24,10 +24,9 @@ class SampleController(
         return "sample2"
     }
 
-//    @PreAuthorize("hasRole('ROLE_ADMIN') or @authHolder.getSomeRole(#request)")
     @SecuredOrLocalhost
     @GetMapping("/sample3")
-    fun sample3(request: HttpServletRequest): String {
+    fun sample3(request: HttpServletRequest, authentication: Authentication?): String {
         return "sample3"
     }
 }
