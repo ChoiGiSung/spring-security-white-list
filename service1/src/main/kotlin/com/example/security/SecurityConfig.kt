@@ -12,9 +12,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 class SecurityConfig : WebSecurityConfigurerAdapter() {
 
     override fun configure(http: HttpSecurity) {
-        http
-            .csrf().disable().authorizeRequests()
-            .antMatchers("/sample3").access("hasRole('ROLE_ADMIN') or hasIpAddress('127.0.0.1')")
+//        http
+//            .csrf().disable().authorizeRequests()
+//            .antMatchers("/sample3").access("hasRole('ROLE_ADMIN') or hasIpAddress('127.0.0.1')")
 
     }
 }
