@@ -10,9 +10,15 @@ import javax.servlet.http.HttpServletRequest
 class AuthHolder {
 
     @Value("\${my.allowed.ip}")
-    private val ip: String? = null
+    private val ips: String? = null
 
     fun getSomeRole(request: HttpServletRequest): Boolean {
-        return request.remoteAddr.equals(ip)
+        val ips = this.ips?.split(",") ?: emptyList()
+        for (ip in ips) {
+            if (request.remoteAddr.equals(ip)) {
+                return true
+            }
+        }
+        return false
     }
 }
