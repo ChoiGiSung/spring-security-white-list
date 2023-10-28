@@ -19,15 +19,10 @@ class SampleController(
         return "sample"
     }
 
+    @SecuredOrLocalhost(roles = ["ROLE_ADMIN", "ROLE_USER"])
     @GetMapping("/sample2")
     fun sample2(): String {
         return "sample2"
-    }
-
-    @SecuredOrLocalhost
-    @GetMapping("/sample3")
-    fun sample3(): String {
-        return "sample3"
     }
 
 }
