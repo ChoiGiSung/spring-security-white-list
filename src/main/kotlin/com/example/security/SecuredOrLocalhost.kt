@@ -4,7 +4,7 @@ import org.springframework.security.access.prepost.PreAuthorize
 
 @Target(AnnotationTarget.FUNCTION)
 @Retention(AnnotationRetention.RUNTIME)
-@PreAuthorize("@authHolder.getSomeRole(#request)")
+@PreAuthorize("@authHolder.getSomeRole()")
 annotation class SecuredOrLocalhost(
     val roles: Array<String> = ["ROLE_ADMIN"]
 )

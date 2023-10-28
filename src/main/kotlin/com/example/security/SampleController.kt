@@ -26,7 +26,7 @@ class SampleController(
 
     @SecuredOrLocalhost
     @GetMapping("/sample3")
-    fun sample3(request: HttpServletRequest): String {
+    fun sample3(): String {
         return "sample3"
     }
 

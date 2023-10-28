@@ -15,7 +15,7 @@ class AuthHolder {
     @Value("\${my.allowed.ip}")
     private val ips: String? = null
 
-    fun getSomeRole(request: HttpServletRequest): Boolean {
+    fun getSomeRole(): Boolean {
         val authorities = SecurityContextHolder.getContext().authentication?.authorities ?: emptyList()
         for (auth in authorities) {
             if (auth.authority.equals("ROLE_ADMIN")) {
@@ -26,6 +26,7 @@ class AuthHolder {
         // 현재 요청의 IP 주소를 가져오기 위해 RequestContextHolder 사용
         val requestAttributes = RequestContextHolder.currentRequestAttributes()
         val ipSplits = this.ips?.split(",") ?: emptyList()
+
         if (requestAttributes is ServletRequestAttributes) {
             val ip = requestAttributes.request.remoteAddr
             for (allowedIp in ipSplits) {
