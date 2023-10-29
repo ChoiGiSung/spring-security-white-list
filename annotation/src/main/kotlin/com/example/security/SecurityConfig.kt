@@ -20,15 +20,24 @@ import org.springframework.security.web.access.expression.WebExpressionVoter
 @Configuration
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true) // 메소드보호 호출
 @EnableWebSecurity
-class SecurityConfig {
-
+class SecurityConfig(
+    private val whiteListVoter: HttpWhiteListVoter
+) {
     @Bean
     fun filterChain(http: HttpSecurity): SecurityFilterChain {
         return http
             .authorizeRequests()
-            .antMatchers("/sample2").hasIpAddress("127.0.0.1")
+            .accessDecisionManager(webAccessDecisionManager())
             .anyRequest().authenticated()
             .and().build();
+    }
+
+    @Bean
+    fun webAccessDecisionManager(): AccessDecisionManager {
+        val decisionVoters: MutableList<AccessDecisionVoter<*>> = ArrayList()
+        decisionVoters.add(WebExpressionVoter())
+        decisionVoters.add(whiteListVoter)
+        return AffirmativeBased(decisionVoters)
     }
 
 }
