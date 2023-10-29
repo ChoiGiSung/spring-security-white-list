@@ -30,7 +30,7 @@ class AuthHolder {
         return authorities.any { it.authority in allowedRoles }
     }
 
-    fun getIpAddressAllowed(request: HttpServletRequest): Boolean {
+    private fun getIpAddressAllowed(request: HttpServletRequest): Boolean {
         val ip = request.remoteAddr
         val ipSplits = ips?.split(",") ?: emptyList()
         return ip in ipSplits

@@ -15,7 +15,9 @@ class SampleController(
 ) {
 
     @GetMapping("/sample")
-    fun sample(): String {
+    fun sample(
+        userDetails: Authentication?
+    ): String {
         return "sample"
     }
 
