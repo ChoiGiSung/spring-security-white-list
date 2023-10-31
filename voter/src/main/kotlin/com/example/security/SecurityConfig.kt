@@ -27,6 +27,7 @@ class SecurityConfig(
     override fun accessDecisionManager(): AccessDecisionManager {
         val decisionVoters: MutableList<AccessDecisionVoter<*>> = ArrayList()
         val expressionAdvice = ExpressionBasedPreInvocationAdvice()
+            expressionAdvice.setExpressionHandler(expressionHandler)
         decisionVoters.add(PreInvocationAuthorizationAdviceVoter(expressionAdvice))
         decisionVoters.add(RoleVoter())
         decisionVoters.add(AuthenticatedVoter())
