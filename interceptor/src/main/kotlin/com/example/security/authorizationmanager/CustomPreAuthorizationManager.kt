@@ -14,8 +14,8 @@ class CustomPreAuthorizationManager(
 
 
     override fun check(authentication: Supplier<Authentication>, `object`: MethodInvocation): AuthorizationDecision {
-        val whiteListDecision = httpAuthTokenAuthorizationManager.check(authentication, `object`)
+        val httpAuthTokenDecision = httpAuthTokenAuthorizationManager.check(authentication, `object`)
         val securedDecision = preAuthorizeAuthorizationManager.check(authentication, `object`)!!
-        return AuthorizationDecision(whiteListDecision.isGranted || securedDecision.isGranted)
+        return AuthorizationDecision(httpAuthTokenDecision.isGranted || securedDecision.isGranted)
     }
 }
