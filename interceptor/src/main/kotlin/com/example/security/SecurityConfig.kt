@@ -30,8 +30,7 @@ class SecurityConfig {
             return http
                 .csrf { it.disable() }
                 .authorizeHttpRequests {
-                    it.anyRequest().authenticated()
-//                    it.anyRequest().access(httpAuthTokenWebAuthorizationManager)
+                    it.anyRequest().access(httpAuthTokenWebAuthorizationManager)
                 }
                 .build()
         }
