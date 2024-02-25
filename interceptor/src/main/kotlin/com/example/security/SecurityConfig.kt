@@ -3,6 +3,7 @@ package com.example.security
 import com.example.security.authorizationmanager.CustomPreAuthorizationManager
 import com.example.security.authorizationmanager.CustomSecuredAuthorizationManager
 import com.example.security.authorizationmanager.HttpAuthTokenAuthorizationManager
+import com.example.security.authorizationmanager.HttpAuthTokenWebAuthorizationManager
 import org.aopalliance.intercept.MethodInterceptor
 import org.springframework.beans.factory.config.BeanDefinition
 import org.springframework.context.annotation.Bean
@@ -20,14 +21,18 @@ class SecurityConfig {
 
     @Configuration
     @EnableWebSecurity
-    internal class WebSecurityConfig {
+    internal class WebSecurityConfig(
+        private val httpAuthTokenWebAuthorizationManager: HttpAuthTokenWebAuthorizationManager,
+    ) {
 
-        //todo authenticationManager
         @Bean
         fun filterChain(http: HttpSecurity): SecurityFilterChain {
             return http
                 .csrf { it.disable() }
-                .authorizeHttpRequests { it.anyRequest().authenticated() }
+                .authorizeHttpRequests {
+                    it.anyRequest().authenticated()
+//                    it.anyRequest().access(httpAuthTokenWebAuthorizationManager)
+                }
                 .build()
         }
 
