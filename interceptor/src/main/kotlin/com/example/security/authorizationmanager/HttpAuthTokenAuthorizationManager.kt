@@ -19,10 +19,10 @@ class HttpAuthTokenAuthorizationManager(
     override fun check(authentication: Supplier<Authentication>, `object`: MethodInvocation): AuthorizationDecision {
         `object`.method.getAnnotation(HttpAuthToken::class.java) ?: return AuthorizationDecision(false)
         val request = (RequestContextHolder.currentRequestAttributes() as ServletRequestAttributes).request
-        return AuthorizationDecision(getIpAddressAllowed(request))
+        return AuthorizationDecision(getAllowed(request))
     }
 
-    private fun getIpAddressAllowed(request: HttpServletRequest): Boolean {
+    private fun getAllowed(request: HttpServletRequest): Boolean {
         val provideToken = request.getHeader(HTTP_AUTH_TOKEN) ?: return false
         return httpAuthTokenValidator.validateToken(provideToken)
     }
