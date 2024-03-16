@@ -5,10 +5,10 @@ import org.springframework.stereotype.Component
 
 
 @Component
-class HttpAuthTokenValidator {
-
+class HttpAuthTokenValidator(
     @Value("\${http.auth.token}")
-    private val token: String? = null
+    private val token: String
+) {
 
     companion object {
         public const val HTTP_AUTH_TOKEN: String = "HTTP_AUTH_TOKEN"
